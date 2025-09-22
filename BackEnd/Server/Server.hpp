@@ -5,7 +5,9 @@
 class Server{
     public:Server(){}
     public:~Server(){}
-    public:void main(){
-        std::cout << "Server Start" << std::endl;
+    public:void main(int argc, char* argv[]){
+        int a,b;
+        std::cin >> a >> b;
+        std::cout << a+b << std::endl;
     }
 };
