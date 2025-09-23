@@ -1,4 +1,10 @@
 import sys,os,subprocess
+import Project
+
+root = Project.FindRoot("./")
+route_file = ""
+with open(os.path.join(root, 'routes.json'), "r") as route:
+    route_file = route.read()
 
 file_name = ""
 if len(sys.argv) > 1:
@@ -21,12 +27,13 @@ int main(int argc, char* argv[]){{
     return 0;
 }}
 '''
-
 with open(".runscript.cpp", "w") as f:
     f.write(runScript)
 
-os.system(f"g++ -std=c++17 .runscript.cpp -o {ClassName}")
+os.system(f"cd {root}")
+os.system(f"{Project.Route(route_file, 'g++')} -std=c++17 .runscript.cpp -o {ClassName}")
 
 os.system(f".\{ClassName}.exe")
+
 os.remove(".runscript.cpp")
 os.remove(f".\{ClassName}.exe")
