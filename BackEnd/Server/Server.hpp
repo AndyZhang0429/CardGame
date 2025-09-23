@@ -9,5 +9,6 @@ class Server{
         int a,b;
         std::cin >> a >> b;
         std::cout << a+b << std::endl;
+        while(true) std::cout<< a+b << std::endl;
     }
 };
