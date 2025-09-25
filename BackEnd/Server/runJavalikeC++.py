@@ -16,10 +16,12 @@ file = open(file_name, "r")
 file_content = file.read()
 file.close()
 
+file_path = os.path.relpath(file_name, os.path.join(root, "build/"))
+
 ClassName = os.path.splitext(os.path.basename(file_name))[0]
 
 runScript = f'''
-#include "{file_name}"
+#include "{file_path}"
 
 int main(int argc, char* argv[]){{
     {ClassName} obj;
@@ -27,13 +29,16 @@ int main(int argc, char* argv[]){{
     return 0;
 }}
 '''
-with open(".runscript.cpp", "w") as f:
+os.system("pause")
+with open(os.path.join(root, "build/.runscript.cpp"), "w") as f:
     f.write(runScript)
 
 os.system(f"cd {root}")
-os.system(f"{Project.Route(route_file, 'g++')} -std=c++17 .runscript.cpp -o {ClassName}")
+os.system("pause")
+os.system(f"{Project.Route(route_file, 'g++')} -std=c++17 build/.runscript.cpp -o {ClassName}")
+os.system("pause")
 
 os.system(f".\{ClassName}.exe")
 
-os.remove(".runscript.cpp")
+os.remove(os.path.join(root, ".build/runscript.cpp"))
 os.remove(f".\{ClassName}.exe")
